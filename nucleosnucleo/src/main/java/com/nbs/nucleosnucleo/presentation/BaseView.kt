@@ -16,6 +16,4 @@ interface BaseView {
 
     fun finishActivity()
 
-    fun hideKeyboard()
-
 }
