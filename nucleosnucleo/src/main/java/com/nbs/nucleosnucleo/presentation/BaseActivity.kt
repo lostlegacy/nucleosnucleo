@@ -2,16 +2,12 @@ package com.nbs.nucleosnucleo.presentation
 
 import android.annotation.TargetApi
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.IBinder
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import com.nbs.nucleosnucleo.R
 
 
@@ -25,7 +21,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callba
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         setContentView(layoutResource)
 
         onViewReady()
@@ -92,24 +87,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callba
 
     override fun finishActivity() {
         finish()
-    }
-
-    override fun hideKeyboard() {
-        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-        var iBinder: IBinder? = null
-        try {
-            iBinder = currentFocus!!.windowToken
-        } catch (e: NullPointerException) {
-            e.printStackTrace()
-        }
-
-        if (iBinder != null) {
-            inputManager.hideSoftInputFromWindow(
-                iBinder,
-                InputMethodManager.HIDE_NOT_ALWAYS
-            )
-        }
     }
 
     override fun onFragmentAttached() {
