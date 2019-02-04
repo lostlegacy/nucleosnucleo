@@ -73,10 +73,6 @@ abstract class BaseFragment : Fragment(), BaseView {
         baseActivity?.finishActivity()
     }
 
-    override fun hideKeyboard() {
-        baseActivity?.hideKeyboard()
-    }
-
     private fun onViewReady() {
         initLib()
         initIntent()
