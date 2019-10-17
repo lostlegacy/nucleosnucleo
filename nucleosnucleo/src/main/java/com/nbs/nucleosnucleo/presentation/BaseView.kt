@@ -1,6 +1,6 @@
 package com.nbs.nucleosnucleo.presentation
 
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 
 interface BaseView {
 
