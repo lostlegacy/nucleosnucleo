@@ -10,7 +10,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.nbs.nucleosnucleo.R
 
-
+@Deprecated(
+    message = "As of 06 April 2020, It's Deprecated",
+    replaceWith = ReplaceWith("NucleoActivity")
+)
 abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callback {
 
     private var mProgressDialog: ProgressDialog? = null

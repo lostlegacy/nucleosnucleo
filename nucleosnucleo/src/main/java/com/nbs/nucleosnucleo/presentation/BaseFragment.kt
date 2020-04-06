@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 
+@Deprecated(
+    message = "As of 06 April 2020, It's Deprecated",
+    replaceWith = ReplaceWith("NucleoFragment")
+)
 abstract class BaseFragment : Fragment(), BaseView {
 
     private var baseActivity: BaseActivity? = null
