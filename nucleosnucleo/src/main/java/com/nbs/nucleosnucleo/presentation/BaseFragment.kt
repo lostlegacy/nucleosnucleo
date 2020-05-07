@@ -9,10 +9,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 
-@Deprecated(
-    message = "As of 06 April 2020, It's Deprecated",
-    replaceWith = ReplaceWith("NucleoFragment")
-)
 abstract class BaseFragment : Fragment(), BaseView {
 
     private var baseActivity: BaseActivity? = null
@@ -25,7 +21,11 @@ abstract class BaseFragment : Fragment(), BaseView {
         setHasOptionsMenu(false)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         return inflater.inflate(layoutResource, container, false)
     }
@@ -72,21 +72,27 @@ abstract class BaseFragment : Fragment(), BaseView {
         baseActivity = null
         super.onDetach()
     }
-    
+
     override fun finishActivity() {
         baseActivity?.finishActivity()
     }
 
-    private fun onViewReady() {
+    protected open fun onViewReady() {
         initLib()
         initIntent()
         initUI()
         initAction()
         initProcess()
+        initObservers()
     }
 
-    //    Init Presenter and Component Injection here
-    protected abstract fun initLib()
+
+    @Deprecated("Soon will be removed")
+    protected open fun initLib() {
+    }
+
+    //    Init viewModel liveData Observer
+    protected abstract fun initObservers()
 
     //    Extract desired intent here
     protected abstract fun initIntent()

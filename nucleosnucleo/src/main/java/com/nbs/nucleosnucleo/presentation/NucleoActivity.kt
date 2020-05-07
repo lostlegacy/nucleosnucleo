@@ -110,7 +110,7 @@ abstract class NucleoActivity : AppCompatActivity(), BaseView, BaseFragment.Call
         transaction.commit()
     }
 
-    private fun onViewReady() {
+    protected open fun onViewReady() {
         initLib()
         initIntent()
         initUI()

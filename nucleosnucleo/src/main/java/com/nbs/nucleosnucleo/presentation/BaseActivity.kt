@@ -5,15 +5,14 @@ import android.app.ProgressDialog
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.nbs.nucleosnucleo.R
 
-@Deprecated(
-    message = "As of 06 April 2020, It's Deprecated",
-    replaceWith = ReplaceWith("NucleoActivity")
-)
 abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callback {
 
     private var mProgressDialog: ProgressDialog? = null
@@ -100,6 +99,15 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callba
 
     }
 
+    protected fun changeStatusBarColor(@ColorRes barColor: Int) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return
+        window.apply {
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            statusBarColor = ContextCompat.getColor(this@BaseActivity, barColor)
+        }
+    }
+
     fun setFragment(viewRes: Int, fragment: Fragment, addToBackStack: Boolean) {
         val transaction = supportFragmentManager.beginTransaction()
 
@@ -114,16 +122,21 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callba
         transaction.commit()
     }
 
-    private fun onViewReady() {
+    protected open fun onViewReady() {
         initLib()
         initIntent()
         initUI()
         initAction()
         initProcess()
+        initObservers()
     }
 
-    //    Init Presenter and Component Injection here
-    protected abstract fun initLib()
+    @Deprecated("Soon will be removed")
+    protected open fun initLib() {
+    }
+
+    //    init Presenter and Component Injection here
+    protected abstract fun initObservers()
 
     //    Extract desired intent here
     protected abstract fun initIntent()
